@@ -162,7 +162,6 @@ class ChatsScreen extends StatelessWidget {
   Widget buildStoryItem(UserModel? model, context) {
     return InkWell(
       onTap: () {
-        // SocialCubit.get(context).getChatMessages(model!.uId);
         navigateTo(context, ChatMessagesScreen(model));
       },
       child: SizedBox(
