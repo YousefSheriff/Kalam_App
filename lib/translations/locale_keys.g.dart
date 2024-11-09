@@ -59,5 +59,6 @@ abstract class  LocaleKeys {
   static const emptyPosts = 'emptyPosts';
   static const writeYourMessageHere = 'writeYourMessageHere';
   static const emptyMessage = 'emptyMessage';
+  static const myEmptyPosts = 'myEmptyPosts';
 
 }

@@ -16,7 +16,7 @@ class ChatsScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return ConditionalBuilder(
-          condition: SocialCubit.get(context).users!.isNotEmpty ||
+          condition: SocialCubit.get(context).users.isNotEmpty &&
               SocialCubit.get(context).usersChatItems!.isNotEmpty,
           builder: (context) {
             return Scaffold(
@@ -113,7 +113,7 @@ class ChatsScreen extends StatelessWidget {
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return buildStoryItem(
-                                SocialCubit.get(context).users![index],
+                                SocialCubit.get(context).users[index],
                                 context);
                           },
                           separatorBuilder: (context, index) {
@@ -121,7 +121,7 @@ class ChatsScreen extends StatelessWidget {
                               width: 18.0,
                             );
                           },
-                          itemCount: SocialCubit.get(context).users!.length,
+                          itemCount: SocialCubit.get(context).users.length,
                           scrollDirection: Axis.horizontal,
                         ),
                       ),

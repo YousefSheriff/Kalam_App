@@ -140,16 +140,10 @@ class _SocialLayoutScreenState extends State<SocialLayoutScreen> with SingleTick
             ),
           ),
 
-
-
-
-
-
           body: TabBarView(
             physics: const RangeMaintainingScrollPhysics(),
             controller: tabController,
             children: cubit.screens,
-
           ),
         ) ;
       },

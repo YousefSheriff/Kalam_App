@@ -1,4 +1,3 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,6 +51,7 @@ class ChatMessagesScreen extends StatelessWidget
               body: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
                       child: ListView.separated(
@@ -75,7 +75,7 @@ class ChatMessagesScreen extends StatelessWidget
                         itemCount:SocialCubit.get(context).chatMessages.length,
                       ),
                     ),
-                    const SizedBox(height: 15,),
+                    const SizedBox(height: 10,),
                     Container(
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -135,19 +135,19 @@ class ChatMessagesScreen extends StatelessWidget
                               ),
                             ),
                           ),
-                          IconButton(onPressed: ()
-                          {
-                            var date = DateTime.now();
-                            var formattedDate = DateFormat('d MMM yyyy','en_US').format(date);
-                            var formattedTime = DateFormat('h:mm a','en_US').format(date);
-                            var formattedDateeeee = DateFormat('d MMM yyyy \'at\' h:mm a','en_US').format(date);
-
-
-                            print(formattedDate);
-                            print(formattedTime);
-                            print(formattedDateeeee);
-                            print(date);
-                          }, icon: Icon(Icons.add),),
+                          // IconButton(onPressed: ()
+                          // {
+                          //   var date = DateTime.now();
+                          //   var formattedDate = DateFormat('d MMM yyyy','en_US').format(date);
+                          //   var formattedTime = DateFormat('h:mm a','en_US').format(date);
+                          //   var formattedDateeeee = DateFormat('d MMM yyyy \'at\' h:mm a','en_US').format(date);
+                          //
+                          //
+                          //   print(formattedDate);
+                          //   print(formattedTime);
+                          //   print(formattedDateeeee);
+                          //   print(date);
+                          // }, icon: Icon(Icons.add),),
                         ],
                       ),
                     ),
@@ -213,12 +213,12 @@ class ChatMessagesScreen extends StatelessWidget
   Widget buildFriendMessage(model)
   {
     return Align(
-      alignment:AlignmentDirectional.centerStart,
+      // alignment:AlignmentDirectional.centerEnd,
       child: Container(
         width: 350,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.end,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          // mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CircleAvatar(
               radius: 19.0,

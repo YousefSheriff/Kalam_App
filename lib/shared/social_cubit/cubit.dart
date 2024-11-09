@@ -15,6 +15,7 @@ import 'package:social_app/modules/notifications/social_notifications_screen.dar
 import 'package:social_app/modules/profile/social_profile_screen.dart';
 import 'package:social_app/modules/settings/social_settings_screen.dart';
 import 'package:social_app/modules/users/social_users_screen.dart';
+import 'package:social_app/shared/components/components.dart';
 import 'package:social_app/shared/components/constant.dart';
 import 'package:social_app/shared/social_cubit/states.dart';
 import 'dart:ui' as ui;
@@ -335,6 +336,7 @@ import 'package:social_app/shared/styles/iconBroken.dart';
 
 
   List<PostModel>newPosts=[];
+  List<PostModel>myPosts=[];
   List<String> postsIds = [];
 
 
@@ -344,11 +346,19 @@ import 'package:social_app/shared/styles/iconBroken.dart';
     FirebaseFirestore.instance.collection('posts').snapshots().listen((event) async
     {
           newPosts=[];
+          myPosts=[];
           postsIds = [];
           event.docs.forEach((element) async
       {
         postsIds.add(element.id);
         newPosts.add(PostModel.fromJson(element.data()));
+        if(element.data()['uId']==userModel?.uId)
+        {
+          myPosts.add(PostModel.fromJson(element.data()));
+          // print('//////////////////////////////////');
+          // print(element.data());
+          // print('//////////////////////////////////');
+        }
 
         element.reference.collection('likes').snapshots().listen((event)
         {
@@ -366,7 +376,7 @@ import 'package:social_app/shared/styles/iconBroken.dart';
           });
         });
         });
-      emit(SocialGetPostSuccessState());
+
     });
   }
 
@@ -499,7 +509,7 @@ import 'package:social_app/shared/styles/iconBroken.dart';
   }
 
 
-  List<UserModel> ? users ;
+  List<UserModel> users=[] ;
   void getAllUsers()
   {
     users=[];
@@ -509,7 +519,7 @@ import 'package:social_app/shared/styles/iconBroken.dart';
       {
         if(element.data()['uId']!=userModel?.uId)
         {
-          users?.add(UserModel.fromJson(element.data()));
+          users.add(UserModel.fromJson(element.data()));
         }
       });
 
@@ -645,6 +655,48 @@ FirebaseFirestore.instance
     });
 
   }
+
+  UserModel? anotherUserData;
+  Future<void> getAnotherUserData(String uId)async
+  {
+    FirebaseFirestore.instance.collection('users').doc(uId).snapshots().listen((event)
+    {
+      anotherUserData = UserModel.fromJson(event.data());
+      if(uId==userModel?.uId)
+      {
+        showToast(message: 'this is how other see your profile.', state:ToastStates.WARNING);
+      }
+      getAnotherUserPosts(uId);
+
+      print(event.data());
+      emit(SocialGetAnotherUserDataState());
+    });
+  }
+
+
+
+
+
+  List<PostModel> anotherUserPosts = [];
+  Future<void> getAnotherUserPosts(String uId)async
+  {
+    FirebaseFirestore.instance.collection('posts').snapshots().listen((event) {
+      anotherUserPosts = [];
+      event.docs.forEach((element)
+      {
+        if(element.data()['uId'] == uId)
+        {
+          anotherUserPosts.add(PostModel.fromJson(element.data()));
+          // print('//////////////////////////////////////////////////////');
+          // print(element.data());
+          // print('//////////////////////////////////////////////////////');
+        }
+      });
+      emit(SocialGetAnotherUserPostsState());
+    });
+  }
+
+
 
 
 

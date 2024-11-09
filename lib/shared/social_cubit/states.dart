@@ -138,6 +138,12 @@ class SocialUserChatItemSuccessState extends SocialAppStates{}
 
 class SocialGetChatItemsSuccessState extends SocialAppStates{}
 
+class SocialGetAnotherUserDataState extends SocialAppStates{}
+
+class SocialGetAnotherUserPostsState extends SocialAppStates{}
+
+
+
 
 
 

@@ -56,6 +56,7 @@
   "post": "Post",
   "emptyPosts": "The world is empty right now !  ",
   "writeYourMessageHere": "write your message here ...",
-  "emptyMessage": "can't put empty message!"
+  "emptyMessage": "can't put empty message!",
+  "myEmptyPosts": "You hav'\t made any posts!"
 
 }

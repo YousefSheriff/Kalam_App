@@ -72,7 +72,8 @@ class CodegenLoader extends AssetLoader{
   "post": "نشر",
   "emptyPosts": "الدنيا فاضية لسه ! ",
   "writeYourMessageHere": "اكتب رسالتك هنا ...",
-  "emptyMessage": "لا يمكن إرسال رسالة فارغة!"
+  "emptyMessage": "لا يمكن إرسال رسالة فارغة!",
+  "myEmptyPosts": "لم تقم بانشاء اي منشور بعد!"
 };
 static const Map<String,dynamic> en = {
   "sign": "Sign in now",
@@ -132,7 +133,8 @@ static const Map<String,dynamic> en = {
   "post": "Post",
   "emptyPosts": "The world is empty right now !  ",
   "writeYourMessageHere": "write your message here ...",
-  "emptyMessage": "can't put empty message!"
+  "emptyMessage": "can't put empty message!",
+  "myEmptyPosts": "You hav'\t made any posts!"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": ar, "en": en};
 }

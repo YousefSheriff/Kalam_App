@@ -2,9 +2,13 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:social_app/models/create_post/create_post_model.dart';
+import 'package:social_app/modules/Social_layout/social_layout_screen.dart';
 import 'package:social_app/modules/new_comments_screen/new_comments_screen.dart';
 import 'package:social_app/modules/new_post/new_post_screen.dart';
+import 'package:social_app/modules/profile/social_profile_screen.dart';
+import 'package:social_app/modules/user_profile/social_user_profile_screen.dart';
 import 'package:social_app/shared/components/components.dart';
 import 'package:social_app/shared/social_cubit/cubit.dart';
 import 'package:social_app/shared/social_cubit/states.dart';
@@ -49,11 +53,17 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            CircleAvatar(
-                              radius: 21.0,
-                              backgroundImage: NetworkImage(
-                                '${SocialCubit.get(context).userModel?.image}',
+                            InkWell(
+                              child: CircleAvatar(
+                                radius: 21.0,
+                                backgroundImage: NetworkImage(
+                                  '${SocialCubit.get(context).userModel?.image}',
+                                ),
                               ),
+                              onTap: ()
+                              {
+                                // SocialCubit.get(context).changeIndex(4);
+                              },
                             ),
                             const SizedBox(
                               width: 20,
@@ -214,7 +224,8 @@ class HomeScreen extends StatelessWidget {
                       itemCount: SocialCubit.get(context).newPosts.length,
                     );
                   },
-                  fallback: (BuildContext context) {
+                  fallback: (BuildContext context)
+                  {
                     return Column(
                       children:  [
                         Padding(
@@ -260,65 +271,79 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 23.0,
-                  backgroundImage: NetworkImage(
-                    '${model.image}',
+            InkWell(
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 23.0,
+                    backgroundImage: NetworkImage(
+                      '${model.image}',
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            '${model.name}',
-                            style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
-                                      fontSize: 17.5,
-                                      fontWeight: FontWeight.bold,
-                                      height: 1.4,
-                                    ),
-                          ),
-                          const SizedBox(
-                            width: 7.0,
-                          ),
-                          const Icon(
-                            Icons.check_circle,
-                            color: Colors.blue,
-                            size: 13.0,
-                          ),
-                        ],
-                      ),
-                      Text(
-                        '${model.dateTime}',
-                        style: const TextStyle(
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey,
-                          height: 1.4,
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              '${model.name}',
+                              style:
+                                  Theme.of(context).textTheme.bodyText1!.copyWith(
+                                        fontSize: 17.5,
+                                        fontWeight: FontWeight.bold,
+                                        height: 1.4,
+                                      ),
+                            ),
+                            const SizedBox(
+                              width: 7.0,
+                            ),
+                            const Icon(
+                              Icons.check_circle,
+                              color: Colors.blue,
+                              size: 13.0,
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
+                        Text(
+                          '${model.dateTime}',
+                          style: const TextStyle(
+                            fontSize: 13.0,
+                            fontWeight: FontWeight.w500,
+                            color: Colors.grey,
+                            height: 1.4,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.more_horiz,
-                    size: 25.0,
+                  const SizedBox(
+                    width: 15,
                   ),
-                )
-              ],
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.more_horiz,
+                      size: 25.0,
+                    ),
+                  )
+                ],
+              ),
+              onTap: ()
+              {
+
+                SocialCubit.get(context).getAnotherUserData(model.uId.toString()).then((value)
+                {
+                  if(model.uId==SocialCubit.get(context).userModel)
+                  {
+                    navigateTo(context, const AnotherUserProfileScreen());
+                  }
+                  navigateTo(context, const AnotherUserProfileScreen());
+                });
+              },
             ),
             const SizedBox(height: 20.0,),
             Text(
