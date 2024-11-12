@@ -348,6 +348,7 @@ import 'package:social_app/shared/styles/iconBroken.dart';
           newPosts=[];
           myPosts=[];
           postsIds = [];
+
           event.docs.forEach((element) async
       {
         postsIds.add(element.id);

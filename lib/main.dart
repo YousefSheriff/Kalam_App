@@ -1,7 +1,9 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:social_app/modules/Social_layout/social_layout_screen.dart';
 import 'package:social_app/modules/chat_messages/chat_messages_screen.dart';
 import 'package:social_app/modules/chats/social_chats_screen.dart';
@@ -11,6 +13,7 @@ import 'package:social_app/modules/login/shop_login_screen.dart';
 import 'package:social_app/modules/new_post/new_post_screen.dart';
 import 'package:social_app/modules/on_boarding/liquid_on_boarding_screen.dart';
 import 'package:social_app/modules/on_boarding/on_boarding_screen.dart';
+import 'package:social_app/modules/splash/social_splash_screen.dart';
 import 'package:social_app/shared/app_mode_cubit/mode_cubit.dart';
 import 'package:social_app/shared/app_mode_cubit/mode_states.dart';
 import 'package:social_app/shared/components/constant.dart';
@@ -101,10 +104,10 @@ class MyApp extends StatelessWidget {
 
               if (uId==null)
               {
-                return SocialCubit()..updateIiLikedThisPost()..newGetPosts();
+                return SocialCubit()..newGetPosts()..updateIiLikedThisPost();
               } else
               {
-                return SocialCubit()..updateIiLikedThisPost()..getUserData()..newGetPosts();
+                return SocialCubit()..getUserData()..newGetPosts()..updateIiLikedThisPost();
               }
             }
         ),
@@ -120,7 +123,14 @@ class MyApp extends StatelessWidget {
             darkTheme: darkTheme,
             themeMode: ModeCubit.get(context).isDark?ThemeMode.dark:ThemeMode.light,
             debugShowCheckedModeBanner: false,
-            home:  startWidget,
+            home:  AnimatedSplashScreen(
+              splashIconSize: 200,
+              backgroundColor: HexColor('#f2f2f2'),
+              splashTransition: SplashTransition.scaleTransition,
+              animationDuration: const Duration(milliseconds:2000),
+              splash: const SplashScreen(),
+              nextScreen: startWidget,
+            ),
           );
         },
       ),
