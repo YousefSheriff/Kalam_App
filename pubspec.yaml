@@ -51,6 +51,7 @@ dependencies:
   easy_localization: ^3.0.2
   intl: ^0.17.0
   animated_splash_screen: ^1.2.0
+  flutter_native_splash: ^2.2.18
 
 
   # firebase
